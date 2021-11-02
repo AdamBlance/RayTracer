@@ -1,0 +1,56 @@
+/*
+ * Camera.cpp
+ *
+ */
+#include <iostream>
+
+#include "Camera.h"
+#include "cameras/Pinhole.h"
+#include "cameras/ThinLens.h"
+#include "Scene.h"
+
+namespace rt{
+
+	Camera::~Camera(){};
+
+
+
+/**
+ * Factory function that returns camera subclass based on camera specifications
+ *
+ * @param cameraSpecs camera specifications json object
+ *
+ * @return camera subclass instance
+ *
+ */
+Camera* Camera::createCamera(Value& cameraSpecs){
+
+	//check if cameratype is defined
+
+	if (!cameraSpecs.HasMember("type")){
+		std::cerr<<"Camera type not specified"<<std::endl;
+		exit(-1);
+	}
+
+	std::string cameraType=cameraSpecs["type"].GetString();
+
+	//return camera object based on camera specs
+	if (cameraType.compare("pinhole")==0){
+		return new Pinhole(cameraSpecs["width"].GetInt(),
+				cameraSpecs["height"].GetInt(),
+				cameraSpecs["fov"].GetInt(),
+                Scene::toVec3f(cameraSpecs["position"].GetArray()),
+                Scene::toVec3f(cameraSpecs["lookat"].GetArray()),
+                Scene::toVec3f(cameraSpecs["up"].GetArray()));
+
+	}else if (cameraType.compare("thinlens")==0){
+		return new ThinLens();
+	}
+
+	return 0;
+
+}
+
+
+
+} //namespace rt
