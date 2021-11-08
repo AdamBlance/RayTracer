@@ -29,10 +29,13 @@ public:
         return shapes;
     }
 
-    static Vec3f toVec3f(GenericArray<false, GenericValue<UTF8<>>::ValueType> const &json_array);
+    Vec3f getBackgroundColour() {
+        return backgroundColour;
+    }
 
 private:
 
+    Vec3f backgroundColour;
 	std::vector<LightSource*> lightSources;
 	std::vector<Shape*> shapes;
 

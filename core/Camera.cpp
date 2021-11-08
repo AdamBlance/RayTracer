@@ -70,8 +70,8 @@ Camera* Camera::createCamera(Value& cameraSpecs){
 
 	std::string cameraType = cameraSpecs["type"].GetString();
 
-    int cameraHeight = cameraSpecs["width"].GetInt();
-    int cameraWidth = cameraSpecs["height"].GetInt();
+    int cameraHeight = cameraSpecs["height"].GetInt();
+    int cameraWidth = cameraSpecs["width"].GetInt();
     int cameraFov = cameraSpecs["fov"].GetInt();
     Vec3f cameraPosition = Helper::toVec3f(cameraSpecs["position"].GetArray());
     Vec3f cameraLookat = Helper::toVec3f(cameraSpecs["lookat"].GetArray());

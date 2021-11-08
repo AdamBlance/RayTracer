@@ -21,6 +21,8 @@ void Scene::createScene(Value& scenespecs){
 
 	//----------parse json object to populate scene-----------
 
+    backgroundColour = Helper::toVec3f(scenespecs["backgroundcolor"].GetArray());
+
     // For each JSON lightsource
     for (auto& lightsource : scenespecs["lightsources"].GetArray()) {
 

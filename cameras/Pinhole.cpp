@@ -3,8 +3,9 @@
  *
  *
  */
+#define _USE_MATH_DEFINES
 #include <iostream>
-
+#include <cmath>
 #include "Pinhole.h"
 
 
@@ -30,10 +31,13 @@ namespace rt{
     // Returns a ray in world space
     Ray Pinhole::castRay(int xPixel, int yPixel) {
 
+        // FOV determines distance of view plane from camera origin
+        float dist = tanf((90 - 0.5*m_fov) * (M_PI/180));
+
         // View plane is from -1,1, -1,1
 
-        Vec3f bottomLeft(-1, -1, 1);
-        float pixelWidth = 2/m_width;
+        Vec3f bottomLeft(-1, -1, dist);
+        float pixelWidth = 2.0/m_width;
 
         // This gets the bottom left corner of the pixel
         Vec3f xyPixel = bottomLeft + xPixel*Vec3f(pixelWidth, 0, 0) + yPixel*Vec3f(0, pixelWidth, 0);
@@ -41,9 +45,48 @@ namespace rt{
         // This corrects to pixel centre
         xyPixel = xyPixel + Vec3f(pixelWidth/2, pixelWidth/2, 0);
 
+
+        if (yPixel == 0 && xPixel == 0) {
+            std::cout << "(" << xPixel << "," << yPixel << ")" << std::endl;
+            std::cout << "xyPixel = " << xyPixel << std::endl;
+        }
+        if (yPixel == 0 && xPixel == 799) {
+            std::cout << "(" << xPixel << "," << yPixel << ")" << std::endl;
+
+            std::cout << "xyPixel = " << xyPixel << std::endl;
+
+        }
+        if (yPixel == 799 && xPixel == 0) {
+            std::cout << "(" << xPixel << "," << yPixel << ")" << std::endl;
+
+            std::cout << "xyPixel = " << xyPixel << std::endl;
+
+        }
+        if (yPixel == 799 && xPixel == 799) {
+            std::cout << "(" << xPixel << "," << yPixel << ")" << std::endl;
+
+            std::cout << "xyPixel = " << xyPixel << std::endl;
+
+        }
+        
+
         Vec3f rayDirection;
 
         cameraToWorld.multDirMatrix(xyPixel, rayDirection);
+
+
+        if (yPixel == 0 && xPixel == 0) {
+            std::cout << "after transform = " << rayDirection << std::endl;
+        }
+        if (yPixel == 0 && xPixel == 799) {
+            std::cout << "after transform = " << rayDirection << std::endl;
+        }
+        if (yPixel == 799 && xPixel == 0) {
+            std::cout << "after transform = " << rayDirection << std::endl;
+        }
+        if (yPixel == 799 && xPixel == 799) {
+            std::cout << "after transform = " << rayDirection << std::endl;
+        }
 
         Ray r = {.raytype = PRIMARY, .o = m_position, .d = rayDirection};
 

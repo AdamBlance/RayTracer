@@ -31,7 +31,7 @@ namespace rt{
         // So first we need to get the ray relative to our sphere
         // Sphere intersections are done with x^2+y^2+z^2=r^2 and it is assumed that the sphere is at the origin
 
-        Ray objray = {.raytype=PRIMARY, .o=ray.o-(this->center), .d=ray.d-(this->center)};
+        Ray objray = {.raytype=PRIMARY, .o=ray.o-(this->center), .d=ray.d};
 
         // If we sub our parametric ray into the sphere equation, we get some quadratic equation
         // at^2 + bt + c = 0
