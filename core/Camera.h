@@ -8,6 +8,7 @@
 
 #include <geometry.h>
 #include "rapidjson/document.h"
+#include "RayHitStructs.h"
 
 
 using namespace rapidjson;
@@ -21,8 +22,7 @@ public:
 	// Constructors
 	//
 	Camera(){};
-	Camera(int height, int width, int fov, Vec3f position, Vec3f lookat, Vec3f up)
-        :height(height), width(width), fov(fov), position(position), lookat(lookat), up(up) {};
+	Camera(int height, int width, int fov, Vec3f position, Vec3f lookat, Vec3f up);
 
 	//
 	// Destructor
@@ -47,52 +47,35 @@ public:
 	// other camera functions (to complete)
 	//
 
-
-
-
-
-
-
-
-
-
-
-
+    virtual Ray castRay(int xPixel, int yPixel)=0;
 
 
 	//
 	// Getters and Setters
 	//
 	int getHeight() const {
-		return height;
-	}
-
-	void setHeight(int height) {
-		this->height = height;
+		return m_height;
 	}
 
 	int getWidth() const {
-		return width;
+		return m_width;
 	}
 
-	void setWidth(int width) {
-		this->width = width;
-	}
 
     int getFov() const {
-        return fov;
+        return m_fov;
     }
 
     Vec3f getPosition() const {
-        return position;
+        return m_position;
     }
 
     Vec3f getLookat() const {
-        return lookat;
+        return m_lookat;
     }
 
     Vec3f getUp() const {
-        return up;
+        return m_up;
     }
 
 protected:
@@ -100,12 +83,14 @@ protected:
 	//
 	//camera members
 	//
-	int height;
-	int width;
-	int fov; //field of view
-    Vec3f position;
-    Vec3f lookat;
-    Vec3f up;
+	int m_height;
+	int m_width;
+	int m_fov; //field of view
+    Vec3f m_position;
+    Vec3f m_lookat;
+    Vec3f m_up;
+
+    Matrix44f cameraToWorld;
 
 };
 

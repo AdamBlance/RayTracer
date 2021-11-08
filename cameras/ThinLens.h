@@ -30,6 +30,8 @@ public:
 	//
 	void printCamera();
 
+    Ray castRay(int xPixel, int yPixel);
+
 };
 
 

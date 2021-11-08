@@ -47,6 +47,7 @@
             "diffusecolor": [1.0, 0.2, 0.2]
         }
     },
+
     {
         "id": "right wall",
         "type": "triangle",
@@ -60,6 +61,7 @@
             "diffusecolor": [0.2, 0.2, 1.0]
         }
     }
+
     ]
 }
 }

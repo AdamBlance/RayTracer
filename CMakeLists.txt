@@ -5,7 +5,8 @@ project("Ray Tracer" C CXX)
 
 include_directories(
 parsers
-math)
+math
+utility)
 
 
 file (GLOB rapidjson_headers
@@ -19,6 +20,7 @@ cameras/*.cpp
 lights/*.cpp
 shapes/*.cpp
 materials/*.cpp
+utility/*.cpp
 )
 
 

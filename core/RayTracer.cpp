@@ -28,13 +28,6 @@ Vec3f* RayTracer::render(Camera* camera, Scene* scene, int nbounces){
     // -1, 1
     // -1, 1
 
-    // Be careful, this has the same name as raytracing in one weekend
-    float viewport_height = 2.0;
-    float viewport_width = 2.0;
-    float distance_from_camera = 1.0;
-
-    // We'll put it one unit away from the camera
-
     // We need a vector that is perpendicular to both the lookat and the up vector.
     // This lets us point left and right on the viewport
     Vec3f camera_x = camera->getLookat().crossProduct(camera->getUp()).normalize();
@@ -71,6 +64,8 @@ Vec3f* RayTracer::render(Camera* camera, Scene* scene, int nbounces){
             Vec3f point_at_pixel = point_to_top_left + x_pixel*camera_x*(1.0/(0.5*camera->getWidth())) - y_pixel*camera_y*(1.0/(0.5*camera->getHeight()));
 //            Vec3f point_at_pixel = point_to_top_left + x_pixel*camera_x*(1.0/(0.5*camera->getWidth()));
 
+//            std::cout << "(" << x_pixel << "," << y_pixel << ") ";
+
             if (y_pixel == 0 && x_pixel == 799){
                 std::cout << point_at_pixel << std::endl;
             } else if (y_pixel == 799 && x_pixel == 0) {
@@ -81,7 +76,8 @@ Vec3f* RayTracer::render(Camera* camera, Scene* scene, int nbounces){
 
 //            std::cout << acos( ((camera->getLookat().normalize()*tanf((M_PI - camera->getFov()*(M_PI/180))/2)).dotProduct(point_at_pixel)) / ((camera->getLookat().normalize()*tanf((M_PI - camera->getFov()*(M_PI/180))/2)).length()*point_at_pixel.length()) ) * (180.0/3.141592653589793238463) << std::endl;
 
-            Ray ray = {.raytype=PRIMARY, .o=camera->getPosition(), .d=point_at_pixel};
+//            Ray ray = {.raytype=PRIMARY, .o=camera->getPosition(), .d=(point_at_pixel-camera->getPosition()).normalize()};
+            Ray ray = {.raytype=PRIMARY, .o=camera->getPosition(), .d=(point_at_pixel).normalize()};
 
 //            std::cout << (y_pixel*camera->getHeight()) + x_pixel << std::endl;
 

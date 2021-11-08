@@ -17,6 +17,7 @@ public:
     Triangle(Vec3f v0, Vec3f v1, Vec3f v2)
             : m_v0{v0}, m_v1{v1}, m_v2{v2} {
         std::cout << "Created triangle!" << std::endl;
+        print();
     };
 
     Hit intersect(Ray ray) override;

@@ -28,7 +28,12 @@ namespace rt{
 	 */
 	void ThinLens::printCamera(){
 		printf("I am a thin lens camera! \n");
-		printf("width: %dpx, height: %dpx, fov:%d \n", width, height, fov);
+		printf("width: %dpx, height: %dpx, fov:%d \n", m_width, m_height, m_fov);
 	}
+
+    Ray ThinLens::castRay(int xPixel, int yPixel) {
+        Ray r;
+        return r;
+    }
 
 } //namespace rt

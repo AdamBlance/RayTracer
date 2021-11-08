@@ -29,6 +29,9 @@ public:
 	// print function (implementing abstract function of base class)
 	//
 	void printCamera();
+
+    Ray castRay(int xPixel, int yPixel) override;
+
 };
 
 

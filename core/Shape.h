@@ -8,6 +8,8 @@
 
 #include "core/RayHitStructs.h"
 #include "core/Material.h"
+#include "rapidjson/document.h"
+
 
 namespace rt{
 
@@ -19,8 +21,10 @@ public:
 	//
 	Shape() : id{"empty"} {}
 
+    static Shape* createShape(rapidjson::Value& shapeSpecs);
 
-	//
+
+    //
 	// Destructor (must be overriden in subclass)
 	//
 	virtual ~Shape();
