@@ -36,14 +36,14 @@ namespace rt{
 
         // View plane is from -1,1, -1,1
 
-        Vec3f bottomLeft(-1, -1, dist);
+        Vec3f topRight(-1, 1, dist);
         float pixelWidth = 2.0/m_width;
 
         // This gets the bottom left corner of the pixel
-        Vec3f xyPixel = bottomLeft + xPixel*Vec3f(pixelWidth, 0, 0) + yPixel*Vec3f(0, pixelWidth, 0);
+        Vec3f xyPixel = topRight + xPixel*Vec3f(pixelWidth, 0, 0) - yPixel*Vec3f(0, pixelWidth, 0);
 
         // This corrects to pixel centre
-        xyPixel = xyPixel + Vec3f(pixelWidth/2, pixelWidth/2, 0);
+        xyPixel = xyPixel + Vec3f(pixelWidth/2, -pixelWidth/2, 0);
 
 
         if (yPixel == 0 && xPixel == 0) {
