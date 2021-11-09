@@ -6,15 +6,16 @@
 #ifndef MATERIAL_H_
 #define MATERIAL_H_
 
+#include <string>
+
 namespace rt{
 
-class Material{
+class Material {
 public:
 
+    Material() = default;
 
-private:
 };
-
 
 } //namespace rt
 

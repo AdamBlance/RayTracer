@@ -25,8 +25,7 @@ Vec3f* RayTracer::render(Camera* camera, Scene* scene, int nbounces){
     for (int y_pixel = 0; y_pixel < camera->getHeight(); y_pixel++) {
         for (int x_pixel = 0; x_pixel < camera->getWidth(); x_pixel++) {
 
-//            pixelbuffer[(y_pixel*camera->getHeight()) + x_pixel] = scene->getBackgroundColour();
-            pixelbuffer[(y_pixel*camera->getHeight()) + x_pixel] = Vec3f(0, 0, 0);
+            pixelbuffer[(y_pixel*camera->getHeight()) + x_pixel] = scene->getBackgroundColour()*255;
 
             Ray r = camera->castRay(x_pixel, y_pixel);
 
@@ -45,17 +44,11 @@ Vec3f* RayTracer::render(Camera* camera, Scene* scene, int nbounces){
             }
 
 
-
-
             for (auto& shape : scene->getShapes()) {
                 if (shape->intersect(r).hit) {
-                    pixelbuffer[(y_pixel*camera->getHeight()) + x_pixel] = Vec3f(255, 255, 255);
+                    pixelbuffer[(y_pixel*camera->getHeight()) + x_pixel] = shape->getMaterial().getDiffusecolor()*255;
                     break;
                 }
-            }
-
-            if (y_pixel == 700 && x_pixel == 700) {
-                pixelbuffer[(y_pixel*camera->getHeight()) + x_pixel] = Vec3f(255, 0, 255);
             }
         }
     }

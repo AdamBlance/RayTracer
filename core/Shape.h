@@ -6,6 +6,7 @@
 #ifndef SHAPE_H_
 #define SHAPE_H_
 
+#include <materials/BlinnPhong.h>
 #include "core/RayHitStructs.h"
 #include "core/Material.h"
 #include "rapidjson/document.h"
@@ -19,7 +20,9 @@ public:
 	//
 	// Constructors
 	//
-	Shape() : id{"empty"} {}
+	Shape() = default;
+    explicit Shape(BlinnPhong mat) : material{mat} {};
+
 
     static Shape* createShape(rapidjson::Value& shapeSpecs);
 
@@ -34,11 +37,13 @@ public:
 	//
 	virtual Hit intersect(Ray)=0;
 
+    BlinnPhong getMaterial() {
+        return material;
+    }
 
 protected:
 
-    std::string id;
-//	Material * material;
+	BlinnPhong material;
 
 };
 

@@ -10,6 +10,7 @@
 #include "math/geometry.h"
 #include "core/RayHitStructs.h"
 #include "core/Shape.h"
+#include "materials/BlinnPhong.h"
 
 namespace rt{
 
@@ -20,7 +21,7 @@ public:
 	//
 	// Constructors
 	//
-	Sphere(Vec3f center, float radius):Shape(),center(center), radius(radius){
+	Sphere(Vec3f center, float radius, BlinnPhong mat):Shape(mat),center(center), radius(radius){
         std::cout << "Created sphere!" << std::endl;
     };
 
