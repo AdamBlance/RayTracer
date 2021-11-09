@@ -29,9 +29,15 @@ public:
         return shapes;
     }
 
+    std::vector<LightSource*>& getLightSources() {
+        return lightSources;
+    }
+
     Vec3f getBackgroundColour() {
         return backgroundColour;
     }
+
+
 
 private:
 

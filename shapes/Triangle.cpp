@@ -13,7 +13,7 @@ namespace rt{
         Hit h;
 
         // normal
-        Vec3f normal = (m_v1-m_v0).crossProduct(m_v2-m_v1);
+//        Vec3f normal = (m_v1-m_v0).crossProduct(m_v2-m_v1);
 
         // This will break if the direction vector is perpendicular to the normal
         float s = ((m_v0 - ray.o).dotProduct(normal)) / ray.d.dotProduct(normal);
@@ -42,6 +42,7 @@ namespace rt{
         if (dot1>0 && dot2>0 && dot3>0) {
             h.hit = true;
             h.point = intersect;
+            h.normal = normal;
 //            std::cout << "HIT" << std::endl;
         }
 

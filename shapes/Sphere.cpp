@@ -23,7 +23,6 @@ namespace rt{
 
 	Hit Sphere::intersect(Ray ray){
 
-//        std::cout << "testing intersection with sphere" << std::endl;
 
 
 		Hit h;
@@ -62,7 +61,10 @@ namespace rt{
 
             double t = (t1 < t2) ? t1 : t2;
             h.hit = true;
-            h.point = objray.o + (float)t * objray.d;
+            h.point = ray.o + (float)t * ray.d;
+            // Since the sphere is centred at origin, the point of intersection should be the normal
+//            h.normal = (objray.o + (float)t * objray.d).normalize()*-1;
+            h.normal = (objray.d).normalize();
         }
 
 		return h;

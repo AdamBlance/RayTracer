@@ -16,7 +16,7 @@ class Plane: public Shape {
 public:
 
     Plane(Vec3f v1, Vec3f v2, Vec3f v3, Vec3f v0, BlinnPhong mat)
-        : Shape(mat), m_v1{v1}, m_v2{v2}, m_v3{v3}, m_v0{v0}, tri1{Triangle(m_v1, m_v2, m_v3, BlinnPhong())}, tri2{Triangle(m_v3, m_v0, m_v1, BlinnPhong())} {};
+        : Shape(mat), m_v1{v1}, m_v2{v2}, m_v3{v3}, m_v0{v0}, tri1{Triangle(m_v3, m_v2, m_v1, mat)}, tri2{Triangle(m_v1, m_v0, m_v3, mat)} {};
 
     Hit intersect(Ray ray) override;
 

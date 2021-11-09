@@ -29,27 +29,43 @@ Vec3f* RayTracer::render(Camera* camera, Scene* scene, int nbounces){
 
             Ray r = camera->castRay(x_pixel, y_pixel);
 
-            Vec3f p = r.o + r.d;
-            if (y_pixel == 0 && x_pixel == 0) {
-                std::cout << "(" << p.x << "," << p.y << "," << p.z << ")" << std::endl;
-            }
-            if (y_pixel == 0 && x_pixel == 799) {
-                std::cout << "(" << p.x << "," << p.y << "," << p.z << ")" << std::endl;
-            }
-            if (y_pixel == 799 && x_pixel == 0) {
-                std::cout << "(" << p.x << "," << p.y << "," << p.z << ")" << std::endl;
-            }
-            if (y_pixel == 799 && x_pixel == 799) {
-                std::cout << "(" << p.x << "," << p.y << "," << p.z << ")" << std::endl;
-            }
-
-
             for (auto& shape : scene->getShapes()) {
-                if (shape->intersect(r).hit) {
-                    pixelbuffer[(y_pixel*camera->getHeight()) + x_pixel] = shape->getMaterial().getDiffusecolor()*255;
+                Hit hit = shape->intersect(r);
+                if (hit.hit) {
+
+                    BlinnPhong mat = shape->getMaterial();
+
+                    float I_p = mat.;
+                    for (auto& light : scene->getLightSources()) {
+
+                        float kd = mat.getKd();
+                        float ks = mat.getKs();
+                        float alpha = mat.getSpecularexponent();
+
+                        Vec3f L = (light->getPosition() - hit.point).normalize();
+                        Vec3f N = hit.normal;
+                        Vec3f V = (-1*r.d).normalize();
+                        float id = light->getDiffuseIntensity().x;
+                        float is = light->getSpecularIntensity().x;
+
+                        Vec3f H = (L+V) * (1/(L+V).length());
+
+                        I_p += kd*(std::max<float>(0.0, L.dotProduct(N)))*id + powf(ks*(std::max<float>(0.0, N.dotProduct(H))), alpha)*is;
+
+
+                    }
+
+                    Vec3f colour = shape->getMaterial().getDiffusecolor()*I_p;
+
+//                    std::cout << "colour = " << colour << std::endl;
+
+                    pixelbuffer[(y_pixel*camera->getHeight()) + x_pixel] = colour;
                     break;
                 }
             }
+
+
+
         }
     }
 
@@ -71,7 +87,6 @@ Vec3f* RayTracer::tonemap(Vec3f* pixelbuffer){
 	return pixelbuffer;
 
 }
-
 
 
 
