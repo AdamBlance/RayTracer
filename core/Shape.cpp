@@ -2,6 +2,8 @@
  * Shape.cpp
  *
  */
+#include <shapes/TriMesh.h>
+#include <shapes/Plane.h>
 #include "Shape.h"
 #include "utility/Helper.h"
 #include "shapes/Sphere.h"
@@ -33,7 +35,14 @@ namespace rt{
             Vec3f v1 = Helper::toVec3f(shapeSpecs["v1"].GetArray());
             Vec3f v2 = Helper::toVec3f(shapeSpecs["v2"].GetArray());
             return new Triangle(v0, v1, v2);
-
+        } else if (shapeType == "plane") {
+            Vec3f v1 = Helper::toVec3f(shapeSpecs["v1"].GetArray());
+            Vec3f v2 = Helper::toVec3f(shapeSpecs["v2"].GetArray());
+            Vec3f v3 = Helper::toVec3f(shapeSpecs["v3"].GetArray());
+            Vec3f v0 = Helper::toVec3f(shapeSpecs["v0"].GetArray());
+            return new Plane(v1, v2, v3, v0);
+        } else {
+            return nullptr;
         }
 
 

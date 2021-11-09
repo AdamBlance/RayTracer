@@ -42,34 +42,11 @@ void Scene::createScene(Value& scenespecs){
 
     // For each JSON shape
     for (auto& shape : scenespecs["shapes"].GetArray()) {
-
-        std::string shape_type = shape["type"].GetString();
-
-        if (shape_type == "sphere") {
-            Vec3f center = Helper::toVec3f(shape["center"].GetArray());
-            float radius = shape["radius"].GetFloat();
-            shapes.push_back(new Sphere(center, radius));
-        } else if (shape_type == "plane") {
-
-            Vec3f v1 = Helper::toVec3f(shape["v1"].GetArray());
-            Vec3f v2 = Helper::toVec3f(shape["v2"].GetArray());
-            Vec3f v3 = Helper::toVec3f(shape["v3"].GetArray());
-            Vec3f v0 = Helper::toVec3f(shape["v0"].GetArray());
-
-            shapes.push_back(new Triangle(v1, v2, v3));
-            shapes.push_back(new Triangle(v3, v0, v1));
-        } else if (shape_type == "triangle") {
-            Vec3f v0 = Helper::toVec3f(shape["v0"].GetArray());
-            Vec3f v1 = Helper::toVec3f(shape["v1"].GetArray());
-            Vec3f v2 = Helper::toVec3f(shape["v2"].GetArray());
-
-            shapes.push_back(new Triangle(v0, v1, v2));
+        shapes.push_back(Shape::createShape(shape));
         }
     }
 
 
-
-}
 
 
 
