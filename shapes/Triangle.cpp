@@ -18,6 +18,10 @@ namespace rt{
         // This will break if the direction vector is perpendicular to the normal
         float s = ((m_v0 - ray.o).dotProduct(normal)) / ray.d.dotProduct(normal);
 
+        if (s <= 0) {
+            return h;
+        }
+
         // Now we have the intersection point
         Vec3f intersect = ray.o + s*ray.d;
 
