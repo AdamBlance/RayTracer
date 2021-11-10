@@ -7,9 +7,9 @@
 #define SHAPE_H_
 
 #include <materials/BlinnPhong.h>
-#include "core/RayHitStructs.h"
 #include "core/Material.h"
 #include "rapidjson/document.h"
+#include "core/RayHitStructs.h"
 
 
 namespace rt{

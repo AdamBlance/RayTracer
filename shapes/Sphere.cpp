@@ -9,7 +9,7 @@
 
 namespace rt{
 
-    static double pow2(double x) {return x * x;}
+    static float pow2(float x) {return x * x;}
 
 	/**
 	 * Computes whether a ray hit the specific instance of a sphere shape and returns the hit data
@@ -39,15 +39,15 @@ namespace rt{
 
         // Just using doubles here because why not?
 
-        double a = pow2(objray.d.x) + pow2(objray.d.y) + pow2(objray.d.z);
-        double b = 2 * ((objray.d.x * objray.o.x) + (objray.d.y * objray.o.y) + (objray.d.z * objray.o.z));
-        double c = pow2(objray.o.x) + pow2(objray.o.y) + pow2(objray.o.z) - pow2(this->radius);
+        float a = pow2(objray.d.x) + pow2(objray.d.y) + pow2(objray.d.z);
+        float b = 2 * ((objray.d.x * objray.o.x) + (objray.d.y * objray.o.y) + (objray.d.z * objray.o.z));
+        float c = pow2(objray.o.x) + pow2(objray.o.y) + pow2(objray.o.z) - pow2(this->radius);
 
         // So we're going to solve the quadratic
         // We first use the discriminant to determine the number of roots
         // b^2 - 4ac
 
-        double discriminant = pow2(b) - 4*a*c;
+        float discriminant = pow2(b) - 4*a*c;
 
         // quadratic formula:
         // x = (-b +- sqrt(b^2 - 4ac)) / 2a
@@ -56,15 +56,18 @@ namespace rt{
 
 //            std::cout << "Hit sphere!" << std::endl;
 
-            double t1 = (-b + sqrt(discriminant)) / 2*a;
-            double t2 = (b + sqrt(discriminant)) / 2*a;
+            float t1 = (-b + sqrtf(discriminant)) / (2*a);
+            float t2 = (-b - sqrtf(discriminant)) / (2*a);
 
-            double t = (t1 < t2) ? t1 : t2;
+            float t = (t1 < t2) ? t1 : t2;
             h.hit = true;
-            h.point = ray.o + (float)t * ray.d;
+            h.point = ray.o + t*ray.d;
             // Since the sphere is centred at origin, the point of intersection should be the normal
-//            h.normal = (objray.o + (float)t * objray.d).normalize()*-1;
-            h.normal = (objray.d).normalize();
+
+            h.normal = (objray.o + t*objray.d).normalize();
+
+//            h.normal = ((ray.o + t*ray.d) - this->center).normalize();
+//            h.normal = (objray.d).normalize();
         }
 
 		return h;

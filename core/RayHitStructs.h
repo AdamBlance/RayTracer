@@ -7,6 +7,7 @@
 
 #include "math/geometry.h"
 
+
 namespace rt{
 
 /*
@@ -16,7 +17,7 @@ enum RayType {PRIMARY, SECONDARY, SHADOW};
 
 struct Ray{
 
-	RayType raytype;
+	RayType raytype = PRIMARY;
 
 	//----------Ray variables to be filled------
 
@@ -32,7 +33,6 @@ struct Hit{
 	Vec3f point; //point where ray hits a shape
     bool hit = false;
     Vec3f normal;
-
 
 };
 

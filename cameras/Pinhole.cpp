@@ -88,7 +88,7 @@ namespace rt{
             std::cout << "after transform = " << rayDirection << std::endl;
         }
 
-        Ray r = {.raytype = PRIMARY, .o = m_position, .d = rayDirection};
+        Ray r = {.raytype = PRIMARY, .o = m_position, .d = rayDirection.normalize()};
 
         return r;
 
