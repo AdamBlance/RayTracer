@@ -8,6 +8,8 @@
 #define BLINNPHONG_H_
 
 #include <geometry.h>
+#include "parsers/PPMReader.h"
+#include "PPMReader.h"
 #include "core/Material.h"
 
 
@@ -20,10 +22,11 @@ public:
     BlinnPhong() = default;
 
     BlinnPhong(float ks, float kd, float kr, int specularexponent, Vec3f diffusecolor, std::string &tPath, int tWidth, int tHeight)
-        : m_ks{ks}, m_kd{kd}, m_kr{kr}, m_specularexponent{specularexponent}, m_diffusecolor{diffusecolor}, m_tPath{tPath}, m_tWidth{tWidth}, m_tHeight{tHeight} {}
+        : m_ks{ks}, m_kd{kd}, m_kr{kr}, m_specularexponent{specularexponent}, m_diffusecolor{diffusecolor}, m_tPath{tPath}, m_tWidth{tWidth}, m_tHeight{tHeight}, m_texture{
+            PPMReader::PPMReader(tWidth, tHeight, tPath)} {}
 
     BlinnPhong(float ks, float kd, float kr, int specularexponent, Vec3f diffusecolor)
-            : m_ks{ks}, m_kd{kd}, m_kr{kr}, m_specularexponent{specularexponent}, m_diffusecolor{diffusecolor}, m_tWidth{0}, m_tHeight{0} {}
+            : m_ks{ks}, m_kd{kd}, m_kr{kr}, m_specularexponent{specularexponent}, m_diffusecolor{diffusecolor}, m_tPath{"none"}, m_tWidth{0}, m_tHeight{0}, m_texture{nullptr} {}
 
     float getKs() const {
         return m_ks;
@@ -49,12 +52,16 @@ public:
         return m_tPath;
     }
 
-    int getMTWidth() const {
+    int getTWidth() const {
         return m_tWidth;
     }
 
-    int getMTHeight() const {
+    int getTHeight() const {
         return m_tHeight;
+    }
+
+    Vec3f *getTexture() const {
+        return m_texture;
     }
 
 private:
@@ -66,6 +73,7 @@ private:
     std::string m_tPath;
     int m_tWidth;
     int m_tHeight;
+    Vec3f* m_texture;
 
 };
 

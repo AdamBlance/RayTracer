@@ -25,14 +25,18 @@ namespace rt{
         Hit hit1 = tri1.intersect(ray);
         Hit hit2 = tri2.intersect(ray);
 
+        Hit h;
+
         if (hit1.hit) {
-            return hit1;
+            h = hit1;
         } else if (hit2.hit) {
-            return hit2;
+            h =  hit2;
         } else {
             Hit blankHit;
             return blankHit;
         }
+
+        return h;
     }
 
 } //namespace rt

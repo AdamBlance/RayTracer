@@ -1,5 +1,5 @@
 {
-"nbounces":3,
+"nbounces":6,
 "camera":{
     "type":"pinhole",
     "width":800,
@@ -15,8 +15,8 @@
     {
         "type": "pointlight",
         "position": [0.0, 1.0, 1.5],
-        "is": [100.0, 100.0, 100.0],
-        "id": [100.0, 100.0, 100.0]
+        "is": [5.0, 5.0, 5.0],
+        "id": [5.0, 5.0, 5.0]
     }
     ],
     "shapes":[
@@ -29,8 +29,8 @@
             "kd":0.8,
             "specularexponent":3,
             "diffusecolor":[0.4, 0.3, 0.4],
-            "tPath": "../textures/sky-map.jpg",
-            "tWidth": 850,
+            "tPath": "../textures/sky-map.ppm",
+            "tWidth": 852,
             "tHeight": 480
         }
     },
@@ -61,6 +61,21 @@
         }
     },
     {
+        "id": "floor",
+        "type": "plane",
+        "v3": [-2.0, 0.0, 0.0],
+        "v0": [-2.0, 8.0, 0.0],
+        "v1": [2.0, 8.0, 0.0],
+        "v2": [2.0, 0.0, 0.0],
+        "material": {
+            "ks": 0.6,
+            "kd": 0.7,
+            "kr": 0.3,
+            "specularexponent": 10,
+            "diffusecolor": [1.0, 1.0, 1.0]
+        }
+    },
+    {
         "id": "back wall",
         "type": "plane",
         "v1": [-2.0, 8.0, 0.0],
@@ -73,24 +88,6 @@
             "kr": 0.3,
             "specularexponent": 10,
             "diffusecolor": [1.0, 1.0, 1.0]
-        }
-    },
-    {
-        "id": "floor",
-        "type": "plane",
-        "v3": [-2.0, 0.0, 0.0],
-        "v0": [-2.0, 8.0, 0.0],
-        "v1": [2.0, 8.0, 0.0],
-        "v2": [2.0, 0.0, 0.0],
-        "material": {
-            "ks": 0.6,
-            "kd": 0.7,
-            "kr": 0.3,
-            "specularexponent": 10,
-            "diffusecolor": [1.0, 1.0, 1.0],
-            "tPath": "../textures/sicily.jpg",
-            "tWidth": 600,
-            "tHeight": 490
         }
     }
     ]

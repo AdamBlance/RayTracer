@@ -33,6 +33,7 @@ struct Hit{
 	Vec3f point; //point where ray hits a shape
     bool hit = false;
     Vec3f normal;
+    Vec2f uvCoord;
 
 };
 

@@ -3,6 +3,7 @@
  *
  *
  */
+#define _USE_MATH_DEFINES
 #include "Sphere.h"
 #include <cmath>
 
@@ -66,8 +67,29 @@ namespace rt{
 
             h.normal = (objray.o + t*objray.d).normalize();
 
-//            h.normal = ((ray.o + t*ray.d) - this->center).normalize();
-//            h.normal = (objray.d).normalize();
+            if (material.getTPath() != "none") {
+
+                Vec3f rel = objray.o + t*objray.d;
+
+                float phi = atan2f(rel.y, rel.x);
+                float theta = acosf(rel.z/radius);
+
+//                std::cout << phi << " " << theta << std::endl;
+
+                // phi is x coord
+                // in range of -pi to pi
+
+                h.uvCoord.x = ((phi+M_PI)/(2*M_PI)) * material.getTWidth();
+                h.uvCoord.y = (theta/M_PI) * material.getTHeight();
+
+//                std::cout << h.uvCoord << std::endl;
+
+
+
+            }
+
+
+
         }
 
 		return h;

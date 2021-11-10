@@ -41,6 +41,8 @@ namespace rt{
                 int tWidth = shapeSpecs["material"]["tWidth"].GetInt();
                 int tHeight = shapeSpecs["material"]["tHeight"].GetInt();
                 mat = BlinnPhong(ks, kd, kr, specularexponent, diffusecolor, tPath, tWidth, tHeight);
+//                mat = BlinnPhong(ks, kd, kr, specularexponent, diffusecolor);
+
             } else {
                 mat = BlinnPhong(ks, kd, kr, specularexponent, diffusecolor);
             }

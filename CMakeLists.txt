@@ -21,6 +21,7 @@ lights/*.cpp
 shapes/*.cpp
 materials/*.cpp
 utility/*.cpp
+parsers/*.cpp
 )
 
 
