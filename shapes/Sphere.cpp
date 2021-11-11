@@ -79,8 +79,8 @@ namespace rt{
                 // phi is x coord
                 // in range of -pi to pi
 
-                h.uvCoord.x = ((phi+M_PI)/(2*M_PI)) * material.getTWidth();
-                h.uvCoord.y = (theta/M_PI) * material.getTHeight();
+                h.uvCoord.x = ((phi+M_PI)/(2*M_PI));
+                h.uvCoord.y = (theta/M_PI);
 
 //                std::cout << h.uvCoord << std::endl;
 

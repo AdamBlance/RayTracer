@@ -48,6 +48,8 @@ public:
     Vec2(T xx, T yy) : x(xx), y(yy) {}
     Vec2 operator + (const Vec2 &v) const
     { return Vec2(x + v.x, y + v.y); }
+    Vec2 operator - (const Vec2 &v) const
+    { return Vec2(x - v.x, y - v.y); }
     Vec2 operator / (const T &r) const
     { return Vec2(x / r, y / r); }
     Vec2 operator * (const T &r) const

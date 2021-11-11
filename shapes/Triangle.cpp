@@ -40,7 +40,7 @@ namespace rt{
         // Going to redo this
 
         // normal
-        Vec3f normal = (m_v1-m_v0).crossProduct(m_v2-m_v1);
+//        Vec3f normal = (m_v1-m_v0).crossProduct(m_v2-m_v1);
 
 //         This will break if the direction vector is perpendicular to the normal
 //        float s = ((m_v0 - r.o).dotProduct(normal)) / r.d.dotProduct(normal);
@@ -82,6 +82,10 @@ namespace rt{
                 h.hit = true;
                 h.point = r.o + t*r.d;
                 h.normal = normal.normalize();
+
+                h.uvCoord = (m_uv0 + beta*(m_uv1 - m_uv0) + gamma*(m_uv2 - m_uv0));
+
+//                h.uvCoord = Vec2f(beta*material.getTWidth(), gamma*material.getTHeight());
             }
         }
 
