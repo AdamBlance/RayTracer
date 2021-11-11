@@ -36,6 +36,33 @@ namespace rt{
             return blankHit;
         }
 
+        BlinnPhong mat = this->getMaterial();
+
+        // Could make protected
+        if (mat.getTPath() != "none") {
+
+
+
+
+
+
+
+            // https://youtu.be/B8Q1nqW3XcE
+            // https://youtu.be/B8Q1nqW3XcE
+            // https://youtu.be/B8Q1nqW3XcE
+            // https://youtu.be/B8Q1nqW3XcE
+            // https://youtu.be/B8Q1nqW3XcE
+
+
+
+
+
+
+
+
+
+        }
+
         return h;
     }
 

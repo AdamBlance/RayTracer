@@ -23,7 +23,7 @@ Vec3f* RayTracer::render(Camera* camera, Scene* scene, int nbounces){
 	Vec3f* pixelbuffer=new Vec3f[camera->getWidth()*camera->getHeight()];
 
     for (int y_pixel = 0; y_pixel < camera->getHeight(); y_pixel++) {
-//        std::cout << "ln " << y_pixel << std::endl;
+        std::cout << "ln " << y_pixel << std::endl;
         for (int x_pixel = 0; x_pixel < camera->getWidth(); x_pixel++) {
 
             Ray r = camera->castRay(x_pixel, y_pixel);

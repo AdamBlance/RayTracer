@@ -22,7 +22,7 @@ public:
 //        print();
     };
 
-    Hit intersect(Ray ray) override;
+    Hit intersect(Ray r) override;
 
     ~Triangle() override {
 //        std::cout << "Destroyed triangle!" << std::endl;
