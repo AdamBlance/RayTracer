@@ -1,5 +1,5 @@
 {
-"nbounces":3,
+"nbounces":1,
 "camera":{
     "type":"pinhole",
     "width":800,
@@ -90,6 +90,16 @@
             "kd": 0.7,
             "kr": 0.3,
             "specularexponent": 10,
+            "diffusecolor": [1.0, 1.0, 1.0]
+        }
+    },
+    {
+        "type": "trimesh",
+        "mPath": "../meshes/suzanne.ply",
+        "material": {
+            "ks": 0.0,
+            "kd": 1.0,
+            "specularexponent": 1,
             "diffusecolor": [1.0, 1.0, 1.0]
         }
     }

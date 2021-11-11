@@ -63,6 +63,9 @@ namespace rt{
             Vec3f v3 = Helper::toVec3f(shapeSpecs["v3"].GetArray());
             Vec3f v0 = Helper::toVec3f(shapeSpecs["v0"].GetArray());
             return new Plane(v1, v2, v3, v0, mat);
+        } else if (shapeType == "trimesh") {
+            std::string filename = shapeSpecs["mPath"].GetString();
+            return new TriMesh(filename, mat);
         } else {
             return nullptr;
         }

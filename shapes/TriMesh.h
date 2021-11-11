@@ -7,8 +7,10 @@
 #ifndef TRIMESH_H_
 #define TRIMESH_H_
 
+#include <vector>
 #include "core/Shape.h"
 #include "shapes/Triangle.h"
+#include "parsers/PLYReader.h"
 
 namespace rt{
 
@@ -16,8 +18,8 @@ class TriMesh: public Shape{
 
 public:
 
-    TriMesh(Vec3f triangles[])
-        : m_triangles{triangles} {}
+    TriMesh(const std::string& filename, BlinnPhong mat)
+        : Shape(mat), m_triangles{PLYReader::PLYReader(filename)} {}
 
     ~TriMesh() override {}
 
@@ -27,7 +29,7 @@ public:
 
 private:
 
-    Vec3f *m_triangles[];
+    std::vector<Triangle>* m_triangles;
 
 };
 

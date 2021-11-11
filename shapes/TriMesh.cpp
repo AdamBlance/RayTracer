@@ -11,10 +11,20 @@ namespace rt{
 
 Hit TriMesh::intersect(Ray ray) {
 
-    // The same as what we did with triangles?
-    // Maybe break the meshes up or something
-
     Hit h;
+
+    float minDist = 1000000;
+
+    for (auto& triangle : *m_triangles) {
+        Hit triHit = triangle.intersect(ray);
+        if (triHit.hit) {
+            float dist = (triHit.point - ray.o).length();
+            if (dist < minDist) {
+                minDist = dist;
+                h = triHit;
+            }
+        }
+    }
 
     return h;
 
