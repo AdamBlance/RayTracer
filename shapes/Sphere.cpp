@@ -60,7 +60,16 @@ namespace rt{
             float t1 = (-b + sqrtf(discriminant)) / (2*a);
             float t2 = (-b - sqrtf(discriminant)) / (2*a);
 
-            float t = (t1 < t2) ? t1 : t2;
+            float t;
+
+            if (t1 < 0.001 && t2 < 0.001) {
+                return h;
+            } else if (std::min(t1, t2) < 0.001) {
+                t = std::max(t1, t2);
+            } else {
+                t = (t1 < t2) ? t1 : t2;
+            }
+
             h.hit = true;
             h.point = ray.o + t*ray.d;
             // Since the sphere is centred at origin, the point of intersection should be the normal

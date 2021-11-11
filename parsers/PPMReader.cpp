@@ -24,7 +24,7 @@ namespace PPMReader {
             std::getline(ppmFile, magicNum);
             std::getline(ppmFile, gimpComment);
             std::getline(ppmFile, resolution);
-            std::getline(ppmFile, maxVal);
+            std::getline(ppmFile, maxVal);  // GIMP maxval is broken
 
             std::string r;
             std::string g;
@@ -35,7 +35,8 @@ namespace PPMReader {
                 std::getline(ppmFile, g);
                 std::getline(ppmFile, b);
 
-                loadedImage[i] = Vec3f(powf(stof(r)/255, 2.2), powf(stof(g)/255, 2.2), powf(stof(b)/255, 2.2))*255;
+//                loadedImage[i] = Vec3f(powf(stof(r)/255, 2.2), powf(stof(g)/255, 2.2), powf(stof(b)/255, 2.2));
+                loadedImage[i] = Vec3f(powf(stof(r)/255, 1), powf(stof(g)/255, 1), powf(stof(b)/255, 1));
             }
 
             ppmFile.close();

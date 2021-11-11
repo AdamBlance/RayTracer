@@ -39,7 +39,15 @@ Vec3f* RayTracer::render(Camera* camera, Scene* scene, int nbounces){
 	return pixelbuffer;
 
 }
-
+bool RayTracer::pointInShade(Vec3f point, Scene* scene, LightSource* light) {
+    for (auto& shape : scene->getShapes()) {
+        Ray rayToLight = {.raytype=SHADOW, .o=point, .d=(light->getPosition()-point)};
+        if (shape->intersect(rayToLight).hit) {
+            return true;
+        }
+    }
+    return false;
+}
 
 Vec3f RayTracer::colourAtHit(Ray r, Scene* scene, int nbounces) {
 
@@ -75,16 +83,18 @@ Vec3f RayTracer::colourAtHit(Ray r, Scene* scene, int nbounces) {
             int x = (int) roundf(hit.uvCoord.x * (float) mat.getTWidth());
             int y = (int) roundf(hit.uvCoord.y * (float) mat.getTHeight());
 
-//            std::cout << "x=" << x << " y=" << y << std::endl;
-
             diffColour = mat.getTexture()[y*mat.getTWidth() + x];
         }
 
-        float ia = 0.02;
-//        Vec3f pointColour = ia * mat.getDiffusecolor();
+        float ia = 0.02; // ambient intensity
         Vec3f pointColour = ia * diffColour;
 
         for (auto& light : scene->getLightSources()) {
+
+            if (pointInShade(hit.point, scene, light)) {
+                continue;
+            }
+
             float dist = (light->getPosition() - hit.point).length();
             Vec3f L = (light->getPosition() - hit.point).normalize();
             float LdotN = std::max<float>(0, L.dotProduct(hit.normal));
@@ -99,13 +109,13 @@ Vec3f RayTracer::colourAtHit(Ray r, Scene* scene, int nbounces) {
 
         float kr = mat.getKr();
         if (kr > 0) {
-            Ray reflectedRay = {.o = hit.point, .d = r.d - 2*(hit.normal.dotProduct(r.d))*hit.normal};
+            Ray reflectedRay = {.raytype=SECONDARY, .o = hit.point, .d = r.d - 2*(hit.normal.dotProduct(r.d))*hit.normal};
             pointColour = (1-kr)*pointColour + kr*colourAtHit(reflectedRay, scene, nbounces-1);
         }
-
         return pointColour;
     }
 
+    // If ray doesn't hit anything
     return scene->getBackgroundColour();
 }
 
