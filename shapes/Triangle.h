@@ -16,7 +16,7 @@ class Triangle: public Shape {
 
 public:
     Triangle() = default;
-    Triangle(Vec3f v0, Vec3f v1, Vec3f v2, BlinnPhong mat)
+    Triangle(Vec3f v0, Vec3f v1, Vec3f v2, BlinnPhong* mat)
             : Shape(mat), m_v0{v0}, m_v1{v1}, m_v2{v2}, normal{((m_v1-m_v0).crossProduct(m_v2-m_v1)).normalize()} {};
     Triangle(Vec3f v0, Vec3f v1, Vec3f v2)
             : m_v0{v0}, m_v1{v1}, m_v2{v2}, normal{((m_v1-m_v0).crossProduct(m_v2-m_v1)).normalize()} {};
@@ -31,6 +31,8 @@ public:
     ~Triangle() override {
 //        std::cout << "Destroyed triangle!" << std::endl;
     }
+
+    BoundingBox getBBox() override;
 
     const Vec3f &getV0() const {
         return m_v0;

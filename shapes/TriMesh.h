@@ -14,19 +14,23 @@
 
 namespace rt{
 
+// A TriMesh object should never be added to the scene on its own
+// Instead, a BVH object should be created that encompasses the trimesh
+// Otherwise, there will be no optimisation and the render will be slow
+
 class TriMesh: public Shape{
 
 public:
 
-    TriMesh(const std::string& filename, BlinnPhong mat)
-        : Shape(mat), m_triangles{PLYReader::PLYReader(filename)} {}
+    TriMesh(const std::string& filename, BlinnPhong* mat);
 
     ~TriMesh() override {}
 
     Hit intersect(Ray) override;
 
-    BoundingBox getBBox();
-
+    std::vector<Triangle>& getTriangles() {
+        return *m_triangles;
+    }
 
 private:
 

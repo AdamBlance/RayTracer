@@ -16,17 +16,21 @@ class BVH: public Shape{
 
 public:
 
-    BVH(TriMesh* shape)
-        : Shape(shape->getMaterial()), bbox{shape->getBBox()}, child{shape} {};
+    explicit BVH(TriMesh* triMesh);
+    BVH(std::vector<Shape>* shapes, int startIndex, int endIndex);
 
     Hit intersect(Ray ray) override;
+
+    BoundingBox getBBox() override;
 
     bool intersectsBBox(Ray ray);
 
 private:
 
     BoundingBox bbox;
-    TriMesh* child;
+
+    BVH* lChild;
+    BVH* rChild;
 
 
 };

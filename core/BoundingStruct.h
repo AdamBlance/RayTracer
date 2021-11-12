@@ -9,6 +9,8 @@
 
 struct BoundingBox {
 
+    bool inUse = false;
+
     float x0 = std::numeric_limits<float>::max();
     float x1 = std::numeric_limits<float>::min();
 

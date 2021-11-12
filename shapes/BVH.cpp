@@ -3,10 +3,26 @@
  *
  *
  */
+#include <algorithm>
 #include "BVH.h"
 
 
 namespace rt{
+
+    static bool
+
+    BVH::BVH(TriMesh* trimesh)
+        : Shape(trimesh->getMaterial()) {
+
+        auto& tris = trimesh->getTriangles();
+
+        auto sortComparator = [](Shape& shape1)
+
+        std::sort(tris.begin(), tris.end(), )
+
+    }
+
+
 
     bool BVH::intersectsBBox(Ray ray) {
 

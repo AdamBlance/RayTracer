@@ -12,6 +12,19 @@ namespace rt{
 
     static float pow2(float x) {return x * x;}
 
+
+    Sphere::Sphere(Vec3f center, float radius, BlinnPhong* mat) {
+        material = mat;
+        center = center;
+        radius = radius;
+
+        // compute bounding box
+
+        auto& c = center;
+        auto& r = radius;
+        bbox = {.inUse=true, .x0=c.x-r, .x1=c.x+r, .y0=c.y-r, .y1=c.y+r, .z0=c.z-r, .z1=c.z+r};
+    }
+
 	/**
 	 * Computes whether a ray hit the specific instance of a sphere shape and returns the hit data
 	 *
@@ -23,8 +36,6 @@ namespace rt{
 
 
 	Hit Sphere::intersect(Ray ray){
-
-
 
 		Hit h;
 
@@ -42,7 +53,7 @@ namespace rt{
 
         float a = pow2(objray.d.x) + pow2(objray.d.y) + pow2(objray.d.z);
         float b = 2 * ((objray.d.x * objray.o.x) + (objray.d.y * objray.o.y) + (objray.d.z * objray.o.z));
-        float c = pow2(objray.o.x) + pow2(objray.o.y) + pow2(objray.o.z) - pow2(this->radius);
+        float c = pow2(objray.o.x) + pow2(objray.o.y) + pow2(objray.o.z) - pow2(radius);
 
         // So we're going to solve the quadratic
         // We first use the discriminant to determine the number of roots
@@ -54,8 +65,6 @@ namespace rt{
         // x = (-b +- sqrt(b^2 - 4ac)) / 2a
 
         if (discriminant >= 0) {  // Two distinct roots
-
-//            std::cout << "Hit sphere!" << std::endl;
 
             float t1 = (-b + sqrtf(discriminant)) / (2*a);
             float t2 = (-b - sqrtf(discriminant)) / (2*a);
@@ -83,26 +92,15 @@ namespace rt{
                 float phi = atan2f(rel.y, rel.x);
                 float theta = acosf(rel.z/radius);
 
-//                std::cout << phi << " " << theta << std::endl;
-
                 // phi is x coord
                 // in range of -pi to pi
 
                 h.uvCoord.x = ((phi+M_PI)/(2*M_PI));
                 h.uvCoord.y = (theta/M_PI);
 
-//                std::cout << h.uvCoord << std::endl;
-
-
-
             }
-
-
-
         }
-
 		return h;
-
 	}
 
     void Sphere::print() {

@@ -21,7 +21,6 @@ namespace rt{
     }
 
     static Vec3f cramers(Vec3f Acol1, Vec3f Acol2, Vec3f Acol3, Vec3f B) {
-
         Vec3f x;
 
         double Adet = det3(Acol1, Acol2, Acol3);
@@ -31,32 +30,23 @@ namespace rt{
         x[2] = det3(Acol1, Acol2, B) / Adet;
 
         return x;
+    }
+
+    Triangle::Triangle(Vec3f v0, Vec3f v1, Vec3f v2, BlinnPhong* mat) {
+        material = mat;
+        m_v0 = v0;
+        m_v1 = v1;
+        m_v2 = v2;
 
     }
+
 
     Hit Triangle::intersect(Ray r) {
         Hit h;
 
-        // Going to redo this
-
-        // normal
-//        Vec3f normal = (m_v1-m_v0).crossProduct(m_v2-m_v1);
-
-//         This will break if the direction vector is perpendicular to the normal
-//        float s = ((m_v0 - r.o).dotProduct(normal)) / r.d.dotProduct(normal);
-
-//        if (s <= 0) {
-//            return h;
-//        }
-
-        // Now we have the intersection point
-//        Vec3f intersect = ray.o + s*ray.d;
-
-//        std::cout << intersect << std::endl;
-
         // Going to swap this code for the barycentric stuff I calculated and from that video
         // https://www.youtube.com/watch?v=HYAgJN3x4GA
-        // https://www.youtube.com/watch?v=B8Q1nqW3XcE
+
 
         // We can write a point in a triangle ABC as
         // A + beta*A->B + gamma*A->C
@@ -84,60 +74,30 @@ namespace rt{
                 h.normal = normal.normalize();
 
                 h.uvCoord = (m_uv0 + beta*(m_uv1 - m_uv0) + gamma*(m_uv2 - m_uv0));
-
-//                h.uvCoord = Vec2f(beta*material.getTWidth(), gamma*material.getTHeight());
             }
         }
-
-        // using cramers rule
-
-
-//        float beta =
-
-//        float beta = (A.x*(C.y - A.y) + (P.y - A.y)*(C.x - A.x) - P.x*(C.y - A.y)) / ((B.y - A.y)*(C.x - A.x) - (B.x - A.x)*(C.y - A.y));
-//        float gamma = (P.y - A.y - beta*(B.y - A.y)) / (C.y - A.y);
-
-//
-//        float beta = (m_v0.x*(m_v2.y-m_v0.y) + (intersect.y-m_v0.y)*(m_v2.x-m_v0.x) - intersect.x*(m_v2.y-m_v0.y)) / ((m_v1.y-m_v0.y)*(m_v2.x-m_v0.x) - (m_v1.x-m_v0.x)*(m_v2.y-m_v0.y));
-//        float gamma = (intersect.y - m_v0.y - beta*(m_v1.y-m_v0.y)) / (m_v2.y-m_v0.y);
-
-
-//        Vec3f v0tov1 = m_v1 - m_v0;
-//        Vec3f v0toI = intersect - m_v0;
-//        Vec3f crs1 = v0tov1.crossProduct(v0toI);
-//
-//        Vec3f v1tov2 = m_v2 - m_v1;
-//        Vec3f v1toI = intersect - m_v1;
-//        Vec3f crs2 = v1tov2.crossProduct(v1toI);
-//
-//        Vec3f v2tov0 = m_v0 - m_v2;
-//        Vec3f v2toI = intersect - m_v2;
-//        Vec3f crs3 = v2tov0.crossProduct(v2toI);
-//
-//        float dot1 = crs1.dotProduct(normal);
-//        float dot2 = crs2.dotProduct(normal);
-//        float dot3 = crs3.dotProduct(normal);
-//
-//        if (dot1>0 && dot2>0 && dot3>0) {
-//            h.hit = true;
-//            h.point = intersect;
-//            h.normal = normal;
-////            std::cout << "HIT" << std::endl;
-//        }
-
-//         Intersection!
-
-//        std::cout << "beta=" << beta << " gamma=" << gamma << std::endl;
-//        if ((beta >= 0) && (gamma >= 0) && ((beta+gamma) <= 1)) {
-//        if (((beta+gamma) <= 1)) {
-//        if (true) {
-//            h.hit = true;
-//            h.point = intersect;
-//            h.normal = normal;
-//        }
-
-
         return h;
+    }
+
+    BoundingBox Triangle::getBBox() {
+        if (!bbox.inUse) {
+            bbox.inUse = true;
+
+            // Slightly nicer naming
+            auto& v0 = m_v0;
+            auto& v1 = m_v1;
+            auto& v2 = m_v2;
+
+            bbox.x0 = std::min(v0.x, std::min(v1.x, v2.x));
+            bbox.x1 = std::max(v0.x, std::max(v1.x, v2.x));
+
+            bbox.y0 = std::min(v0.y, std::min(v1.y, v2.y));
+            bbox.y1 = std::max(v0.y, std::max(v1.y, v2.y));
+
+            bbox.z0 = std::min(v0.z, std::min(v1.z, v2.z));
+            bbox.z1 = std::max(v0.z, std::max(v1.z, v2.z));
+        }
+        return bbox;
     }
 
     void Triangle::print() {

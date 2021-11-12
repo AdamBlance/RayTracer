@@ -14,7 +14,6 @@
 
 namespace rt{
 
-
     Shape::~Shape() {
 
     }

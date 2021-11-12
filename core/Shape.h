@@ -22,11 +22,8 @@ public:
 	// Constructors
 	//
 	Shape() = default;
-    explicit Shape(BlinnPhong mat) : material{mat} {};
-
 
     static Shape* createShape(rapidjson::Value& shapeSpecs);
-
 
     //
 	// Destructor (must be overriden in subclass)
@@ -38,15 +35,18 @@ public:
 	//
 	virtual Hit intersect(Ray)=0;
 
-//    virtual BoundingBox getBBox();
+    BoundingBox getBBox() {
+        return bbox;
+    }
 
-    BlinnPhong getMaterial() {
+    BlinnPhong* getMaterial() {
         return material;
     }
 
 protected:
 
-	BlinnPhong material;
+	BlinnPhong* material;
+    BoundingBox bbox;
 
 };
 

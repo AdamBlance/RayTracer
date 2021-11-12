@@ -21,9 +21,7 @@ public:
 	//
 	// Constructors
 	//
-	Sphere(Vec3f center, float radius, BlinnPhong mat):Shape(mat),center(center), radius(radius){
-        std::cout << "Created sphere!" << std::endl;
-    };
+	Sphere(Vec3f center, float radius, BlinnPhong* mat);
 
 	~Sphere() override  {
         std::cout << "Destroyed sphere!" << std::endl;

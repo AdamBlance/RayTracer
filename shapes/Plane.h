@@ -20,6 +20,9 @@ public:
 
     Hit intersect(Ray ray) override;
 
+    BoundingBox getBBox() override;
+
+
 private:
     Vec3f m_v1;
     Vec3f m_v2;
