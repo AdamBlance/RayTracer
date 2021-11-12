@@ -5,7 +5,7 @@
 
 namespace PLYReader {
 
-    std::vector<rt::Triangle>* PLYReader(const std::string &filename) {
+    std::vector<rt::Shape>* PLYReader(const std::string &filename) {
 
         std::fstream plyFile;
         plyFile.open(filename, std::ios::in);
@@ -76,7 +76,7 @@ namespace PLYReader {
             std::string v1Index;
             std::string v2Index;
 
-            auto* triangles = new std::vector<rt::Triangle>();
+            auto* triangles = new std::vector<rt::Shape>();
 
 //            std::cout << "size of triangle list = " << triangles->size() << std::endl;
 
@@ -94,7 +94,7 @@ namespace PLYReader {
 
                 triangles->push_back(rt::Triangle(
                         verts[std::stoi(v0Index)], verts[std::stoi(v1Index)], verts[std::stoi(v2Index)],
-                        uvCoords[std::stoi(v0Index)], uvCoords[std::stoi(v1Index)], uvCoords[std::stoi(v2Index)]));
+                        uvCoords[std::stoi(v0Index)], uvCoords[std::stoi(v1Index)], uvCoords[std::stoi(v2Index)], nullptr));
             }
 
             plyFile.close();

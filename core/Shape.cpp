@@ -27,7 +27,7 @@ namespace rt{
 
         std::string shapeType = shapeSpecs["type"].GetString();
 
-        BlinnPhong mat;
+        BlinnPhong* mat;
         if (shapeSpecs.HasMember("material")) {
             float ks = shapeSpecs["material"]["ks"].GetFloat();
             float kd = shapeSpecs["material"]["kd"].GetFloat();
@@ -40,9 +40,9 @@ namespace rt{
                 std::string tPath = shapeSpecs["material"]["tPath"].GetString();
                 int tWidth = shapeSpecs["material"]["tWidth"].GetInt();
                 int tHeight = shapeSpecs["material"]["tHeight"].GetInt();
-                mat = BlinnPhong(ks, kd, kr, specularexponent, diffusecolor, tPath, tWidth, tHeight);
+                mat = new BlinnPhong(ks, kd, kr, specularexponent, diffusecolor, tPath, tWidth, tHeight);
             } else {
-                mat = BlinnPhong(ks, kd, kr, specularexponent, diffusecolor);
+                mat = new BlinnPhong(ks, kd, kr, specularexponent, diffusecolor);
             }
         }
 
@@ -63,8 +63,9 @@ namespace rt{
             return new Plane(v1, v2, v3, v0, mat);
         } else if (shapeType == "trimesh") {
             std::string filename = shapeSpecs["mPath"].GetString();
-            TriMesh* mesh = new TriMesh(filename, mat);
-            return new BVH(mesh);
+//            TriMesh* mesh = new TriMesh(filename, mat);
+            std::vector<Shape>* triList = PLYReader::PLYReader(filename);
+            return new BVH(PLYReader::PLYReader(filename), );
         } else {
             return nullptr;
         }

@@ -32,21 +32,42 @@ namespace rt{
         return x;
     }
 
+    void Triangle::computeBBox() {
+        bbox.inUse = true;
+
+        // Slightly nicer naming
+        auto& v0 = m_v0;
+        auto& v1 = m_v1;
+        auto& v2 = m_v2;
+
+        bbox.x0 = std::min(v0.x, std::min(v1.x, v2.x));
+        bbox.x1 = std::max(v0.x, std::max(v1.x, v2.x));
+
+        bbox.y0 = std::min(v0.y, std::min(v1.y, v2.y));
+        bbox.y1 = std::max(v0.y, std::max(v1.y, v2.y));
+
+        bbox.z0 = std::min(v0.z, std::min(v1.z, v2.z));
+        bbox.z1 = std::max(v0.z, std::max(v1.z, v2.z));
+    }
+
     Triangle::Triangle(Vec3f v0, Vec3f v1, Vec3f v2, BlinnPhong* mat) {
         material = mat;
         m_v0 = v0;
         m_v1 = v1;
         m_v2 = v2;
-
+        normal = (m_v1-m_v0).crossProduct(m_v2-m_v0).normalize();
+        computeBBox();
     }
 
+    Triangle::Triangle(Vec3f v0, Vec3f v1, Vec3f v2, Vec2f uv0, Vec2f uv1 ,Vec2f uv2, BlinnPhong* mat)
+        : Triangle(v0, v1, v2, mat){
+        m_uv0 = uv0;
+        m_uv1 = uv1;
+        m_uv2 = uv2;
+    }
 
     Hit Triangle::intersect(Ray r) {
         Hit h;
-
-        // Going to swap this code for the barycentric stuff I calculated and from that video
-        // https://www.youtube.com/watch?v=HYAgJN3x4GA
-
 
         // We can write a point in a triangle ABC as
         // A + beta*A->B + gamma*A->C
@@ -77,27 +98,6 @@ namespace rt{
             }
         }
         return h;
-    }
-
-    BoundingBox Triangle::getBBox() {
-        if (!bbox.inUse) {
-            bbox.inUse = true;
-
-            // Slightly nicer naming
-            auto& v0 = m_v0;
-            auto& v1 = m_v1;
-            auto& v2 = m_v2;
-
-            bbox.x0 = std::min(v0.x, std::min(v1.x, v2.x));
-            bbox.x1 = std::max(v0.x, std::max(v1.x, v2.x));
-
-            bbox.y0 = std::min(v0.y, std::min(v1.y, v2.y));
-            bbox.y1 = std::max(v0.y, std::max(v1.y, v2.y));
-
-            bbox.z0 = std::min(v0.z, std::min(v1.z, v2.z));
-            bbox.z1 = std::max(v0.z, std::max(v1.z, v2.z));
-        }
-        return bbox;
     }
 
     void Triangle::print() {

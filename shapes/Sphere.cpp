@@ -85,7 +85,7 @@ namespace rt{
 
             h.normal = (objray.o + t*objray.d).normalize();
 
-            if (material.getTPath() != "none") {
+            if (material->getTPath() != "none") {
 
                 Vec3f rel = objray.o + t*objray.d;
 

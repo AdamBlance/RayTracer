@@ -73,17 +73,17 @@ Vec3f RayTracer::colourAtHit(Ray r, Scene* scene, int nbounces) {
     }
 
     if (hit.hit) {
-        BlinnPhong mat = intersectingShape->getMaterial();
+        BlinnPhong* mat = intersectingShape->getMaterial();
 
         Vec3f diffColour;
-        if (mat.getTPath() == "none") {
-            diffColour = mat.getDiffusecolor();
+        if (mat->getTPath() == "none") {
+            diffColour = mat->getDiffusecolor();
         } else {
 
-            int x = (int) roundf(hit.uvCoord.x * (float) mat.getTWidth());
-            int y = (int) roundf(hit.uvCoord.y * (float) mat.getTHeight());
+            int x = (int) roundf(hit.uvCoord.x * (float) mat->getTWidth());
+            int y = (int) roundf(hit.uvCoord.y * (float) mat->getTHeight());
 
-            diffColour = mat.getTexture()[y*mat.getTWidth() + x];
+            diffColour = mat->getTexture()[y*mat->getTWidth() + x];
         }
 
         float ia = 0.02; // ambient intensity
@@ -91,23 +91,23 @@ Vec3f RayTracer::colourAtHit(Ray r, Scene* scene, int nbounces) {
 
         for (auto& light : scene->getLightSources()) {
 
-            if (pointInShade(hit.point, scene, light)) {
-                continue;
-            }
+//            if (pointInShade(hit.point, scene, light)) {
+//                continue;
+//            }
 
             float dist = (light->getPosition() - hit.point).length();
             Vec3f L = (light->getPosition() - hit.point).normalize();
             float LdotN = std::max<float>(0, L.dotProduct(hit.normal));
-            Vec3f diffuse = mat.getKd()*diffColour * LdotN * light->getDiffuseIntensity() * (1 / (dist*dist));
+            Vec3f diffuse = mat->getKd()*diffColour * LdotN * light->getDiffuseIntensity() * (1 / (dist*dist));
             Vec3f V = (-1*r.d).normalize();
             Vec3f H = (L+V) * (1/(L+V).length());
             float NdotH = std::max<float>(0, H.dotProduct(hit.normal));
-            Vec3f specular = mat.getKs() * powf(NdotH, (float)mat.getSpecularexponent()) * light->getSpecularIntensity() * (1 / (dist*dist));
+            Vec3f specular = mat->getKs() * powf(NdotH, (float)mat->getSpecularexponent()) * light->getSpecularIntensity() * (1 / (dist*dist));
 
             pointColour = pointColour + (diffuse + specular);
         }
 
-        float kr = mat.getKr();
+        float kr = mat->getKr();
         if (kr > 0) {
             Ray reflectedRay = {.raytype=SECONDARY, .o = hit.point, .d = r.d - 2*(hit.normal.dotProduct(r.d))*hit.normal};
             pointColour = (1-kr)*pointColour + kr*colourAtHit(reflectedRay, scene, nbounces-1);
