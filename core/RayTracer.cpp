@@ -91,9 +91,9 @@ Vec3f RayTracer::colourAtHit(Ray r, Scene* scene, int nbounces) {
 
         for (auto& light : scene->getLightSources()) {
 
-//            if (pointInShade(hit.point, scene, light)) {
-//                continue;
-//            }
+            if (pointInShade(hit.point, scene, light)) {
+                continue;
+            }
 
             float dist = (light->getPosition() - hit.point).length();
             Vec3f L = (light->getPosition() - hit.point).normalize();

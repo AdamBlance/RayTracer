@@ -12,7 +12,7 @@
 
 namespace PLYReader{
 
-	std::vector<rt::Shape>* PLYReader(const std::string& filename);
+	std::vector<rt::Shape*>* PLYReader(const std::string& filename);
 
 };
 

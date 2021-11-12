@@ -15,8 +15,8 @@ namespace rt{
 
     Sphere::Sphere(Vec3f center, float radius, BlinnPhong* mat) {
         material = mat;
-        center = center;
-        radius = radius;
+        m_center = center;
+        m_radius = radius;
 
         // compute bounding box
 
@@ -42,7 +42,7 @@ namespace rt{
         // So first we need to get the ray relative to our sphere
         // Sphere intersections are done with x^2+y^2+z^2=r^2 and it is assumed that the sphere is at the origin
 
-        Ray objray = {.raytype=PRIMARY, .o=ray.o-(this->center), .d=ray.d};
+        Ray objray = {.raytype=PRIMARY, .o=ray.o-(m_center), .d=ray.d};
 
         // If we sub our parametric ray into the sphere equation, we get some quadratic equation
         // at^2 + bt + c = 0
@@ -53,7 +53,7 @@ namespace rt{
 
         float a = pow2(objray.d.x) + pow2(objray.d.y) + pow2(objray.d.z);
         float b = 2 * ((objray.d.x * objray.o.x) + (objray.d.y * objray.o.y) + (objray.d.z * objray.o.z));
-        float c = pow2(objray.o.x) + pow2(objray.o.y) + pow2(objray.o.z) - pow2(radius);
+        float c = pow2(objray.o.x) + pow2(objray.o.y) + pow2(objray.o.z) - pow2(m_radius);
 
         // So we're going to solve the quadratic
         // We first use the discriminant to determine the number of roots
@@ -90,7 +90,7 @@ namespace rt{
                 Vec3f rel = objray.o + t*objray.d;
 
                 float phi = atan2f(rel.y, rel.x);
-                float theta = acosf(rel.z/radius);
+                float theta = acosf(rel.z/m_radius);
 
                 // phi is x coord
                 // in range of -pi to pi
@@ -105,8 +105,8 @@ namespace rt{
 
     void Sphere::print() {
         std::cout << "Type = Sphere" << std::endl;
-        std::cout << "Centre = " << this->center << std::endl;
-        std::cout << "Radius = " << this->radius << std::endl;
+        std::cout << "Centre = " << m_center << std::endl;
+        std::cout << "Radius = " << m_radius << std::endl;
     }
 
 

@@ -16,7 +16,7 @@ class BVH: public Shape{
 
 public:
 
-    BVH(std::vector<Shape>* shapes, int startIndex, int endIndex, BlinnPhong* mat);
+    BVH(std::vector<Shape*>* shapes, int startIndex, int endIndex, BlinnPhong* mat);
 
     Hit intersect(Ray ray) override;
 
@@ -24,7 +24,7 @@ private:
 
     bool intersectsBBox(Ray ray);
 
-    void computeBBox(std::vector<Shape>* shapes, int startIndex, int endIndex);
+    void computeBBox(std::vector<Shape*>* shapes, int startIndex, int endIndex);
 
     Shape* lChild;
     Shape* rChild;

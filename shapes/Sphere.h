@@ -34,8 +34,8 @@ public:
 
 private:
 
-	Vec3f center;
-	float radius;
+	Vec3f m_center;
+	float m_radius;
 
 };
 

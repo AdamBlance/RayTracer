@@ -10,7 +10,7 @@ namespace rt{
 
 TriMesh::TriMesh(const std::string &filename, BlinnPhong* mat) {
     material = mat;
-    m_triangles = PLYReader::PLYReader(filename);
+//    m_triangles = PLYReader::PLYReader(filename);
 
     // compute bounding box
     bbox.inUse = true;

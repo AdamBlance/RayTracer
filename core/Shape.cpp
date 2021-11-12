@@ -64,8 +64,8 @@ namespace rt{
         } else if (shapeType == "trimesh") {
             std::string filename = shapeSpecs["mPath"].GetString();
 //            TriMesh* mesh = new TriMesh(filename, mat);
-            std::vector<Shape>* triList = PLYReader::PLYReader(filename);
-            return new BVH(PLYReader::PLYReader(filename), );
+            auto* triList = PLYReader::PLYReader(filename);
+            return new BVH(triList, 0, (int) triList->size(), mat);
         } else {
             return nullptr;
         }
