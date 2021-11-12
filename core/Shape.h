@@ -10,6 +10,7 @@
 #include "core/Material.h"
 #include "rapidjson/document.h"
 #include "core/RayHitStructs.h"
+#include "BoundingStruct.h"
 
 
 namespace rt{
@@ -36,6 +37,8 @@ public:
 	// Shape abstract methods (to be implemented by subclasses)
 	//
 	virtual Hit intersect(Ray)=0;
+
+//    virtual BoundingBox getBBox();
 
     BlinnPhong getMaterial() {
         return material;

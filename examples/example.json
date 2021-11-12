@@ -14,7 +14,7 @@
     "lightsources": [
     {
         "type": "pointlight",
-        "position": [0.5, 3, 1.5],
+        "position": [0.0, 1.0, 1.5],
         "is": [5.0, 5.0, 5.0],
         "id": [5.0, 5.0, 5.0]
     }
@@ -95,12 +95,15 @@
     },
     {
         "type": "trimesh",
-        "mPath": "../meshes/suzanne.ply",
+        "mPath": "../meshes/suzanne-transformed.ply",
         "material": {
             "ks": 0.0,
             "kd": 1.0,
             "specularexponent": 1,
-            "diffusecolor": [1.0, 1.0, 1.0]
+            "diffusecolor": [1.0, 1.0, 1.0],
+            "tPath": "../textures/wood.ppm",
+            "tWidth": 500,
+            "tHeight": 500
         }
     }
     ]

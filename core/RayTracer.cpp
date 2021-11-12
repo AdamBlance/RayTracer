@@ -23,7 +23,7 @@ Vec3f* RayTracer::render(Camera* camera, Scene* scene, int nbounces){
 	Vec3f* pixelbuffer=new Vec3f[camera->getWidth()*camera->getHeight()];
 
     for (int y_pixel = 0; y_pixel < camera->getHeight(); y_pixel++) {
-        std::cout << "ln " << y_pixel << std::endl;
+        if (y_pixel % 10 == 0) std::cout << "ln " << y_pixel << std::endl;
         for (int x_pixel = 0; x_pixel < camera->getWidth(); x_pixel++) {
 
             Ray r = camera->castRay(x_pixel, y_pixel);
@@ -91,9 +91,9 @@ Vec3f RayTracer::colourAtHit(Ray r, Scene* scene, int nbounces) {
 
         for (auto& light : scene->getLightSources()) {
 
-//            if (pointInShade(hit.point, scene, light)) {
-//                continue;
-//            }
+            if (pointInShade(hit.point, scene, light)) {
+                continue;
+            }
 
             float dist = (light->getPosition() - hit.point).length();
             Vec3f L = (light->getPosition() - hit.point).normalize();
@@ -120,7 +120,6 @@ Vec3f RayTracer::colourAtHit(Ray r, Scene* scene, int nbounces) {
 }
 
 
-
  // https://paroj.github.io/gltut/Illumination/Tutorial%2012.html
 /**
  * Tonemaps the rendered image (conversion of linear RGB values [0-1] to low dynamic range [0-255]
@@ -129,24 +128,11 @@ Vec3f RayTracer::colourAtHit(Ray r, Scene* scene, int nbounces) {
  *
  * @return the tonemapped image
  */
-Vec3f* RayTracer::tonemap(Vec3f* pixelbuffer){
+Vec3f* RayTracer::tonemap(Vec3f* pixelbuffer, int length){
 
 	//---------tonemapping function to be filled--------
 
-//    float max = 0;
-//
-//    for (int i = 0; i < 800*800; i++) {
-//        Vec3f pixel = *(pixelbuffer+i);
-//
-//        float maxOfCurrent = std::max<float>(pixel.x, std::max<float>(pixel.y, pixel.z));
-//        if (maxOfCurrent > max) {
-//            max = maxOfCurrent;
-//        }
-//    }
-
-//    std::cout << max << std::endl;
-
-    for (int i = 0; i < 800*800; i++) {
+    for (int i = 0; i < length; i++) {
         Vec3f colour = *(pixelbuffer+i);
 
         // map from 1-inf to 0-1
@@ -157,10 +143,7 @@ Vec3f* RayTracer::tonemap(Vec3f* pixelbuffer){
 //        *(pixelbuffer+i) = gammaCorrected * 255;
         *(pixelbuffer+i) = inRange * 255;
 
-
-
     }
-
 	return pixelbuffer;
 
 }

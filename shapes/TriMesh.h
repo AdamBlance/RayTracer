@@ -25,11 +25,13 @@ public:
 
     Hit intersect(Ray) override;
 
+    BoundingBox getBBox();
 
 
 private:
 
     std::vector<Triangle>* m_triangles;
+
 
 };
 

@@ -22,11 +22,9 @@ public:
 	RayTracer();
 
 	static Vec3f* render(Camera* camera, Scene* scene, int nbounces);
-	static Vec3f* tonemap(Vec3f* pixelbuffer);
+	static Vec3f* tonemap(Vec3f* pixelbuffer, int length);
     static Vec3f colourAtHit(Ray ray, Scene* scene, int nbounces);
     static bool pointInShade(Vec3f point, Scene* scene, LightSource* light);
-
-private:
 
 
 };

@@ -32,6 +32,18 @@ public:
 //        std::cout << "Destroyed triangle!" << std::endl;
     }
 
+    const Vec3f &getV0() const {
+        return m_v0;
+    }
+
+    const Vec3f &getV1() const {
+        return m_v1;
+    }
+
+    const Vec3f &getV2() const {
+        return m_v2;
+    }
+
     void print();
 
 private:

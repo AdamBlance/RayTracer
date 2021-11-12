@@ -5,6 +5,7 @@
 #include <shapes/TriMesh.h>
 #include <shapes/Plane.h>
 #include <materials/BlinnPhong.h>
+#include <shapes/BVH.h>
 #include "Shape.h"
 #include "utility/Helper.h"
 #include "shapes/Sphere.h"
@@ -41,8 +42,6 @@ namespace rt{
                 int tWidth = shapeSpecs["material"]["tWidth"].GetInt();
                 int tHeight = shapeSpecs["material"]["tHeight"].GetInt();
                 mat = BlinnPhong(ks, kd, kr, specularexponent, diffusecolor, tPath, tWidth, tHeight);
-//                mat = BlinnPhong(ks, kd, kr, specularexponent, diffusecolor);
-
             } else {
                 mat = BlinnPhong(ks, kd, kr, specularexponent, diffusecolor);
             }
@@ -65,7 +64,8 @@ namespace rt{
             return new Plane(v1, v2, v3, v0, mat);
         } else if (shapeType == "trimesh") {
             std::string filename = shapeSpecs["mPath"].GetString();
-            return new TriMesh(filename, mat);
+            TriMesh* mesh = new TriMesh(filename, mat);
+            return new BVH(mesh);
         } else {
             return nullptr;
         }

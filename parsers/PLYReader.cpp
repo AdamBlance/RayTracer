@@ -28,6 +28,8 @@ namespace PLYReader {
             std::getline(plyFile, numVertsString, '\n');
             int numVerts = std::stoi(numVertsString);
 
+//            std::cout << "num verts = " << numVerts << std::endl;
+
             plyFile.ignore(n, '\n');  // "property float x"
             plyFile.ignore(n, '\n');  // "property float y"
             plyFile.ignore(n, '\n');  // "property float z"
@@ -40,6 +42,9 @@ namespace PLYReader {
             std::string numFacesString;
             std::getline(plyFile, numFacesString, '\n');
             int numFaces = std::stoi(numFacesString);
+
+//            std::cout << "num faces = " << numFaces << std::endl;
+
 
             plyFile.ignore(n, '\n');  // "property list uchar uint vertex_indices"
             plyFile.ignore(n, '\n');  // "end_header"
@@ -71,7 +76,10 @@ namespace PLYReader {
             std::string v1Index;
             std::string v2Index;
 
-            auto* triangles = new std::vector<rt::Triangle>(numFaces);
+            auto* triangles = new std::vector<rt::Triangle>();
+
+//            std::cout << "size of triangle list = " << triangles->size() << std::endl;
+
 
             // Create list of triangles
             for (int i = 0; i < numFaces; i++) {
@@ -81,12 +89,19 @@ namespace PLYReader {
                 std::getline(plyFile, v1Index, ' ');
                 std::getline(plyFile, v2Index, '\n');
 
+//                std::cout << "i = " << i << std::endl;
+
+
                 triangles->push_back(rt::Triangle(
                         verts[std::stoi(v0Index)], verts[std::stoi(v1Index)], verts[std::stoi(v2Index)],
                         uvCoords[std::stoi(v0Index)], uvCoords[std::stoi(v1Index)], uvCoords[std::stoi(v2Index)]));
             }
 
             plyFile.close();
+
+//            std::cout << "size of triangle list after pushing triangles = " << triangles->size() << std::endl;
+
+
             return triangles;
 
         } else {

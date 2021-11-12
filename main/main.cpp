@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <chrono>
 
 #include "rapidjson/document.h"
 #include "rapidjson/istreamwrapper.h"
@@ -47,24 +48,22 @@ int main(int argc, char* argv[]){
 	//
 	// Main function, render scene
 	//
+
+    auto start = std::chrono::system_clock::now();
 	Vec3f* pixelbuffer=RayTracer::render(camera, scene, d["nbounces"].GetInt());
+    auto end = std::chrono::system_clock::now();
 
+    std::chrono::duration<double> elapsed_seconds = end-start;
 
-
-
-
-
+    std::cout << "time elapsed -> " << elapsed_seconds.count() << std::endl;
 
 	//convert linear RGB pixel values [0-1] to range 0-255
-	RayTracer::tonemap(pixelbuffer);
-
-
+	RayTracer::tonemap(pixelbuffer, camera->getHeight()*camera->getWidth());
 
 	std::printf("Output file: %s\n",outputFile);
 
 	//write rendered scene to file (pixels RGB values must be in range 0255)
 	PPMWriter::PPMWriter(camera->getWidth(), camera->getHeight(), pixelbuffer, outputFile);
-
 
     //free resources when rendering is finished
     delete camera;
