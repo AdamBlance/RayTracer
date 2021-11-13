@@ -45,48 +45,9 @@ namespace rt{
         // This corrects to pixel centre
         xyPixel = xyPixel + Vec3f(pixelWidth/2, -pixelWidth/2, 0);
 
-
-        if (yPixel == 0 && xPixel == 0) {
-            std::cout << "(" << xPixel << "," << yPixel << ")" << std::endl;
-            std::cout << "xyPixel = " << xyPixel << std::endl;
-        }
-        if (yPixel == 0 && xPixel == 799) {
-            std::cout << "(" << xPixel << "," << yPixel << ")" << std::endl;
-
-            std::cout << "xyPixel = " << xyPixel << std::endl;
-
-        }
-        if (yPixel == 799 && xPixel == 0) {
-            std::cout << "(" << xPixel << "," << yPixel << ")" << std::endl;
-
-            std::cout << "xyPixel = " << xyPixel << std::endl;
-
-        }
-        if (yPixel == 799 && xPixel == 799) {
-            std::cout << "(" << xPixel << "," << yPixel << ")" << std::endl;
-
-            std::cout << "xyPixel = " << xyPixel << std::endl;
-
-        }
-        
-
         Vec3f rayDirection;
 
         cameraToWorld.multDirMatrix(xyPixel, rayDirection);
-
-
-        if (yPixel == 0 && xPixel == 0) {
-            std::cout << "after transform = " << rayDirection << std::endl;
-        }
-        if (yPixel == 0 && xPixel == 799) {
-            std::cout << "after transform = " << rayDirection << std::endl;
-        }
-        if (yPixel == 799 && xPixel == 0) {
-            std::cout << "after transform = " << rayDirection << std::endl;
-        }
-        if (yPixel == 799 && xPixel == 799) {
-            std::cout << "after transform = " << rayDirection << std::endl;
-        }
 
         Ray r = {.raytype = PRIMARY, .o = m_position, .d = rayDirection.normalize()};
 

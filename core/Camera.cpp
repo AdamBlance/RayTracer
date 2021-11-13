@@ -18,7 +18,7 @@ namespace rt{
         m_height = height;
         m_fov = fov;
         m_position = position;
-        m_lookat = lookat;
+        m_lookat = lookat.normalize();
         m_up = up;
 
         // Camera i-hat basis vector can be computed by crossing up and lookat

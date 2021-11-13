@@ -30,9 +30,6 @@ Vec3f* RayTracer::render(Camera* camera, Scene* scene, int nbounces){
 
             pixelbuffer[(y_pixel*camera->getHeight()) + x_pixel] = colourAtHit(r, scene, nbounces);
 
-//            std::cout << pixelbuffer[(y_pixel*camera->getHeight()) + x_pixel] << std::endl;
-
-
         }
     }
 
@@ -72,6 +69,7 @@ Vec3f RayTracer::colourAtHit(Ray r, Scene* scene, int nbounces) {
         }
     }
 
+
     if (hit.hit) {
         BlinnPhong* mat = intersectingShape->getMaterial();
 
@@ -80,8 +78,8 @@ Vec3f RayTracer::colourAtHit(Ray r, Scene* scene, int nbounces) {
             diffColour = mat->getDiffusecolor();
         } else {
 
-            int x = (int) roundf(hit.uvCoord.x * (float) mat->getTWidth());
-            int y = (int) roundf(hit.uvCoord.y * (float) mat->getTHeight());
+            int x = (int) (hit.uvCoord.x * (float) mat->getTWidth());
+            int y = (int) (hit.uvCoord.y * (float) mat->getTHeight());
 
             diffColour = mat->getTexture()[y*mat->getTWidth() + x];
         }
@@ -120,7 +118,6 @@ Vec3f RayTracer::colourAtHit(Ray r, Scene* scene, int nbounces) {
 }
 
 
- // https://paroj.github.io/gltut/Illumination/Tutorial%2012.html
 /**
  * Tonemaps the rendered image (conversion of linear RGB values [0-1] to low dynamic range [0-255]
  *
@@ -136,7 +133,7 @@ Vec3f* RayTracer::tonemap(Vec3f* pixelbuffer, int length){
         Vec3f colour = *(pixelbuffer+i);
 
         // map from 1-inf to 0-1
-        Vec3f inRange = Vec3f(colour.x/(colour.x+1), colour.y/(colour.y+1), colour.z/(colour.z+1));
+        Vec3f inRange = Vec3f(colour.x/(colour.x+1), colour.y/(colour.y+1), colour.z/(colour.z+1));  // Use rindheart
 
         // linear space to gamma space
 //        Vec3f gammaCorrected = Vec3f(powf(inRange.x, 1/2.2), powf(inRange.y, 1/2.2), powf(inRange.z, 1/2.2));

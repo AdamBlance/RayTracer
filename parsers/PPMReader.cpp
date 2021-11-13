@@ -35,8 +35,8 @@ namespace PPMReader {
                 std::getline(ppmFile, g);
                 std::getline(ppmFile, b);
 
-//                loadedImage[i] = Vec3f(powf(stof(r)/255, 2.2), powf(stof(g)/255, 2.2), powf(stof(b)/255, 2.2));
-                loadedImage[i] = Vec3f(powf(stof(r)/255, 1), powf(stof(g)/255, 1), powf(stof(b)/255, 1));
+                loadedImage[i] = Vec3f(powf(stof(r)/255, 2.2), powf(stof(g)/255, 2.2), powf(stof(b)/255, 2.2));
+//                loadedImage[i] = Vec3f(powf(stof(r)/255, 1), powf(stof(g)/255, 1), powf(stof(b)/255, 1));
             }
 
             ppmFile.close();

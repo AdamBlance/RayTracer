@@ -1,5 +1,5 @@
 {
-"nbounces":3,
+"nbounces":6,
 "camera":{
     "type":"pinhole",
     "width":800,
@@ -15,25 +15,11 @@
     {
         "type": "pointlight",
         "position": [0.0, 1.0, 1.5],
-        "is": [5.0, 5.0, 5.0],
-        "id": [5.0, 5.0, 5.0]
+        "is": [10.0, 10.0, 10.0],
+        "id": [10.0, 10.0, 10.0]
     }
     ],
     "shapes":[
-    {
-        "type":"sphere",
-        "center": [0.0, 2.7, 0.15],
-        "radius":0.5,
-        "material":{
-            "ks":0.3,
-            "kd":1.0,
-            "specularexponent":3,
-            "diffusecolor":[0.4, 0.3, 0.4],
-            "tPath": "../textures/sky-map.ppm",
-            "tWidth": 852,
-            "tHeight": 480
-        }
-    },
     {
         "id": "left wall",
         "type": "triangle",
@@ -88,24 +74,64 @@
         "material":{
             "ks": 0.6,
             "kd": 0.7,
-            "kr": 0.3,
+            "kr": 0.7,
             "specularexponent": 10,
             "diffusecolor": [1.0, 1.0, 1.0]
         }
     },
-    {
-        "type": "trimesh",
-        "mPath": "../meshes/suzanne-transformed.ply",
-        "material": {
-            "ks": 0.0,
-            "kd": 1.0,
-            "specularexponent": 1,
-            "diffusecolor": [1.0, 1.0, 1.0],
-            "tPath": "../textures/wood.ppm",
-            "tWidth": 500,
-            "tHeight": 500
+        {
+            "type": "trimesh",
+            "mPath": "../meshes/bolt1.ply",
+            "material": {
+                "ks": 0.0,
+                "kd": 1.0,
+                "specularexponent": 1,
+                "diffusecolor": [1.0, 1.0, 1.0],
+                "tPath": "../textures/wood.ppm",
+                "tWidth": 500,
+                "tHeight": 500
+            }
+        },
+        {
+            "type": "trimesh",
+            "mPath": "../meshes/bolt2.ply",
+            "material": {
+                "ks": 0.0,
+                "kd": 1.0,
+                "specularexponent": 1,
+                "diffusecolor": [1.0, 1.0, 1.0],
+                "tPath": "../textures/wood.ppm",
+                "tWidth": 500,
+                "tHeight": 500
+            }
+        },
+        {
+            "type": "trimesh",
+            "mPath": "../meshes/suzanne-tilted.ply",
+            "material": {
+                "ks": 0.0,
+                "kd": 1.0,
+                "specularexponent": 1,
+                "diffusecolor": [1.0, 1.0, 1.0],
+                "tPath": "../textures/wood.ppm",
+                "tWidth": 500,
+                "tHeight": 500
+            }
+        },
+        {
+            "type": "trimesh",
+            "mPath": "../meshes/wave.ply",
+            "material": {
+                "ks": 0.0,
+                "kd": 1.0,
+                "specularexponent": 1,
+                "diffusecolor": [1.0, 1.0, 1.0],
+                "tPath": "../textures/wood.ppm",
+                "tWidth": 500,
+                "tHeight": 500
+            }
         }
-    }
+
     ]
 }
 }
