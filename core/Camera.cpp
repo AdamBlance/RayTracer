@@ -26,6 +26,10 @@ namespace rt{
         // Camera j-hat basis vector can be computed by crossing iHat with lookat
         Vec3f jHat = iHat.crossProduct(m_lookat).normalize();
 
+        std::cout << iHat << std::endl;
+        std::cout << jHat << std::endl;
+        std::cout << m_lookat << std::endl;
+
         cameraToWorld[0][0] = iHat[0];
         cameraToWorld[1][0] = iHat[1];
         cameraToWorld[2][0] = iHat[2];
@@ -36,14 +40,14 @@ namespace rt{
         cameraToWorld[2][1] = jHat[2];
         cameraToWorld[3][1] = 0.0;
 
-        cameraToWorld[0][2] = m_lookat[0];
-        cameraToWorld[1][2] = m_lookat[1];
-        cameraToWorld[2][2] = m_lookat[2];
+        cameraToWorld[0][2] = -m_lookat[0];
+        cameraToWorld[1][2] = -m_lookat[1];
+        cameraToWorld[2][2] = -m_lookat[2];
         cameraToWorld[3][2] = 0.0;
 
-        cameraToWorld[0][3] = m_position[0];
-        cameraToWorld[1][3] = m_position[1];
-        cameraToWorld[2][3] = m_position[2];
+        cameraToWorld[0][3] = 1*m_position[0];
+        cameraToWorld[1][3] = 1*m_position[1];
+        cameraToWorld[2][3] = 1*m_position[2];
         cameraToWorld[3][3] = 1.0;
 
     }

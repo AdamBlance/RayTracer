@@ -25,6 +25,7 @@ Vec3f* RayTracer::render(Camera* camera, Scene* scene, int nbounces){
     for (int y_pixel = 0; y_pixel < camera->getHeight(); y_pixel++) {
         if (y_pixel % 10 == 0) std::cout << "ln " << y_pixel << std::endl;
         for (int x_pixel = 0; x_pixel < camera->getWidth(); x_pixel++) {
+//            std::cout << "x=" << x_pixel << " y=" << y_pixel << std::endl;
             Ray r = camera->castRay(x_pixel, y_pixel);
             pixelbuffer[(y_pixel*camera->getHeight()) + x_pixel] = colourAtHit(r, scene, nbounces);
         }
