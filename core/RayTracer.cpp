@@ -25,11 +25,8 @@ Vec3f* RayTracer::render(Camera* camera, Scene* scene, int nbounces){
     for (int y_pixel = 0; y_pixel < camera->getHeight(); y_pixel++) {
         if (y_pixel % 10 == 0) std::cout << "ln " << y_pixel << std::endl;
         for (int x_pixel = 0; x_pixel < camera->getWidth(); x_pixel++) {
-
             Ray r = camera->castRay(x_pixel, y_pixel);
-
             pixelbuffer[(y_pixel*camera->getHeight()) + x_pixel] = colourAtHit(r, scene, nbounces);
-
         }
     }
 
@@ -37,9 +34,12 @@ Vec3f* RayTracer::render(Camera* camera, Scene* scene, int nbounces){
 
 }
 bool RayTracer::pointInShade(Vec3f point, Scene* scene, LightSource* light) {
+    Vec3f toLight = light->getPosition()-point;
+    Ray rayToLight = {.raytype=SHADOW, .o=point, .d=toLight};
+
     for (auto& shape : scene->getShapes()) {
-        Ray rayToLight = {.raytype=SHADOW, .o=point, .d=(light->getPosition()-point)};
-        if (shape->intersect(rayToLight).hit) {
+        Hit h = shape->intersect(rayToLight);
+        if (h.hit && (h.point-point).length() < toLight.length() - 0.0001) {
             return true;
         }
     }
@@ -79,7 +79,7 @@ Vec3f RayTracer::colourAtHit(Ray r, Scene* scene, int nbounces) {
         } else {
 
             int x = (int) (hit.uvCoord.x * (float) mat->getTWidth());
-            int y = (int) (hit.uvCoord.y * (float) mat->getTHeight());
+            int y = (int) (mat->getTHeight() - (hit.uvCoord.y * (float) mat->getTHeight()));
 
             diffColour = mat->getTexture()[y*mat->getTWidth() + x];
         }

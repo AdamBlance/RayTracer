@@ -39,7 +39,7 @@ namespace rt{
         Vec3f topRight(-1, 1, dist);
         float pixelWidth = 2.0/m_width;
 
-        // This gets the bottom left corner of the pixel
+        // This gets the bottom left corner of the pixel (no it doesn't?)
         Vec3f xyPixel = topRight + xPixel*Vec3f(pixelWidth, 0, 0) - yPixel*Vec3f(0, pixelWidth, 0);
 
         // This corrects to pixel centre

@@ -1,12 +1,12 @@
 {
-"nbounces":6,
+"nbounces":8,
 "camera":{
     "type":"pinhole",
-    "width":800,
-    "height":800,
+    "width":400,
+    "height":400,
     "fov":35,
     "position": [0.0, -3.5, 2.0],
-    "lookat": [0.0, 1.0, -0.1],
+    "lookat": [0, 1.0, -0.1],
     "up": [0.0, 0.0, 0.5]
 },
 "scene":{
@@ -15,8 +15,14 @@
     {
         "type": "pointlight",
         "position": [0.0, 1.0, 1.5],
-        "is": [10.0, 10.0, 10.0],
-        "id": [10.0, 10.0, 10.0]
+        "is": [6.0, 6.0, 6.0],
+        "id": [6.0, 6.0, 6.0]
+    },
+    {
+        "type": "pointlight",
+        "position": [-1, 5.5, 2],
+        "is": [0, 5.0, 10.0],
+        "id": [0, 5.0, 10.0]
     }
     ],
     "shapes":[
@@ -29,6 +35,7 @@
         "material": {
             "ks": 0.6,
             "kd": 1.0,
+            "kr": 0.5,
             "specularexponent": 10,
             "diffusecolor": [1.0, 0.2, 0.2]
         }
@@ -42,6 +49,7 @@
         "material": {
             "ks": 0.6,
             "kd": 1.0,
+            "kr": 0.5,
             "specularexponent": 10,
             "diffusecolor": [0.2, 0.2, 1.0]
         }
@@ -54,14 +62,13 @@
         "v1": [2.0, 8.0, 0.0],
         "v2": [2.0, 0.0, 0.0],
         "material": {
-            "ks": 0.6,
+            "ks": 0.1,
             "kd": 0.7,
-            "kr": 0.3,
             "specularexponent": 10,
             "diffusecolor": [1.0, 1.0, 1.0],
-            "tPath": "../textures/sicily.ppm",
-            "tWidth": 600,
-            "tHeight": 494
+            "tPath": "../textures/cloth-small.ppm",
+            "tWidth": 1000,
+            "tHeight": 1000
         }
     },
     {
@@ -79,59 +86,19 @@
             "diffusecolor": [1.0, 1.0, 1.0]
         }
     },
-        {
-            "type": "trimesh",
-            "mPath": "../meshes/bolt1.ply",
-            "material": {
-                "ks": 0.0,
-                "kd": 1.0,
-                "specularexponent": 1,
-                "diffusecolor": [1.0, 1.0, 1.0],
-                "tPath": "../textures/wood.ppm",
-                "tWidth": 500,
-                "tHeight": 500
-            }
-        },
-        {
-            "type": "trimesh",
-            "mPath": "../meshes/bolt2.ply",
-            "material": {
-                "ks": 0.0,
-                "kd": 1.0,
-                "specularexponent": 1,
-                "diffusecolor": [1.0, 1.0, 1.0],
-                "tPath": "../textures/wood.ppm",
-                "tWidth": 500,
-                "tHeight": 500
-            }
-        },
-        {
-            "type": "trimesh",
-            "mPath": "../meshes/suzanne-tilted.ply",
-            "material": {
-                "ks": 0.0,
-                "kd": 1.0,
-                "specularexponent": 1,
-                "diffusecolor": [1.0, 1.0, 1.0],
-                "tPath": "../textures/wood.ppm",
-                "tWidth": 500,
-                "tHeight": 500
-            }
-        },
-        {
-            "type": "trimesh",
-            "mPath": "../meshes/wave.ply",
-            "material": {
-                "ks": 0.0,
-                "kd": 1.0,
-                "specularexponent": 1,
-                "diffusecolor": [1.0, 1.0, 1.0],
-                "tPath": "../textures/wood.ppm",
-                "tWidth": 500,
-                "tHeight": 500
-            }
+    {
+        "type": "trimesh",
+        "mPath": "../meshes/buddha.ply",
+        "material": {
+            "ks": 0.0,
+            "kd": 1.0,
+            "specularexponent": 1,
+            "diffusecolor": [1.0, 1.0, 1.0],
+            "tPath": "../textures/buddha-small.ppm",
+            "tWidth": 1000,
+            "tHeight": 1000
         }
-
+    }
     ]
 }
 }

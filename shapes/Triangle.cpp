@@ -64,6 +64,8 @@ namespace rt{
         m_uv0 = uv0;
         m_uv1 = uv1;
         m_uv2 = uv2;
+        normal = (m_v1-m_v0).crossProduct(m_v2-m_v0).normalize();
+        computeBBox();
     }
 
     Hit Triangle::intersect(Ray r) {
